@@ -1,0 +1,140 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="es" xml:lang="es" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+
+        <title>SB Admin 2 - Login</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <!-- Custom fonts for this template-->
+        <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"/>
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+              rel="stylesheet"/>
+
+        <!-- Custom styles for this template-->
+        <link href="css/sb-admin-2.min.css" rel="stylesheet"/>       
+    </h:head>
+    <h:body class="bg-gradient-primary">
+        <h:form>
+            <div style="display:none;">
+                <h3>JSF Login Logout</h3>
+                <h:outputText value="Username" />
+                <h:inputText id="username" value="#{login.user}"></h:inputText>
+                <h:message for="username"></h:message>
+                <br /><br />
+
+                <h:outputText value="Password" />
+                <h:inputSecret id="password" value="#{login.pwd}"></h:inputSecret>
+                <h:message for="password"></h:message>
+                <br /><br />
+
+                <h:commandButton action="#{login.validateUsernamePassword}"
+                                 value="Login"></h:commandButton>
+                <p:remoteCommand name="login" action="#{login.validateUsernamePassword()}"  ignoreAutoUpdate="true" />
+                <p:remoteCommand name="registra" action="#{login.registra()}" value="Register" />
+            </div>
+        </h:form> 
+        <div class="container limiter">
+            <!-- Outer Row -->
+            <div class="row justify-content-center container-login100">
+                <div class="col-xl-10 col-lg-12 col-md-9">
+                    <div class="card o-hidden border-0 shadow-lg my-5">
+                        <div class="card-body p-0">
+                            <!-- Nested Row within Card Body -->
+                            <div class="row">
+                                <div class="col-lg-6 d-none d-lg-block">
+                                    <img src="image/login.jpg" style="width: 436px; height: 464px;" alt="alt"/>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="p-5 login-box">
+                                        <div class="text-center">
+                                            <h1 class="h4 text-gray-900 mb-4">Bienvenido!</h1>
+                                        </div>
+                                        <form id="form-horizontal">
+                                            <div class="form-group" title="Username">
+                                                <input type="text" name="email" class="form-control form-control-user"
+                                                       id="username"
+                                                       placeholder="Ingrese su usuario" required=""/>
+                                            </div>
+                                            <div class="form-group" title="Password">
+                                                <input type="password" class="form-control form-control-user pass"
+                                                       id="password" name="pass" required="" placeholder="Ingrese su clave"/>
+                                            </div>
+                                            <a id="btnIngresar" onclick="loginAuth()" class="btn btn-primary btn-user btn-block">
+                                                Iniciar Sesión
+                                            </a>
+                                        </form>
+                                        <hr/>
+                                        <div class="text-center">
+                                            <a class="small" href="register.xhtml">Crear cuenta!</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js" type="text/javascript"></script>
+        <!-- Bootstrap core JavaScript-->
+        <script src="vendor/jquery/jquery.min.js" type="text/javascript"></script>
+        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js" type="text/javascript"></script>
+        <!-- Core plugin JavaScript-->
+        <script src="vendor/jquery-easing/jquery.easing.min.js" type="text/javascript"></script>
+        <!-- Custom scripts for all pages-->
+        <script src="js/sb-admin-2.min.js" type="text/javascript"></script>
+        <script>
+                                                function loginAuth() {
+                                                    var error = 0;
+                                                    if ($('#username').val() == 0) {
+                                                        error = error + 1;
+                                                        $('#username').attr('style', 'border-color:red');
+                                                    } else {
+                                                        $('#username').removeAttr('style', 'border-color:red');
+                                                    }
+                                                    if ($('#password').val() == 0) {
+                                                        error = error + 1;
+                                                        $('#password').attr('style', 'border-color:red');
+                                                    } else {
+                                                        $('#password').removeAttr('style', 'border-color:red');
+                                                    }
+                                                    if (error != 0) {
+                                                        swal("Oops!", "Debes completar los campos!", "error");
+                                                    } else {
+                                                        var filterVal = 'blur(10px)';
+                                                        $(".limiter").css({
+                                                            'filter': filterVal,
+                                                            'transition': 'all 0.10s ease-out',
+                                                            '-webkit-transition': 'all 0.10s ease-out',
+                                                            '-moz-transition': 'all 0.10s ease-out',
+                                                            '-o-transition': 'all 0.10s ease-out',
+                                                            'pointer-events': 'none'
+                                                        });
+                                                        document.body.style.cursor = 'wait';
+                                                        var access = document.getElementById("username").value + "," +
+                                                                document.getElementById("password").value;
+                                                        login([{name: 'users', value: access}]);    
+                                                    }
+
+                                                }
+                                                function register() {
+                                                    var filterVal = 'blur(10px)';
+                                                    $(".limiter").css({
+                                                        'filter': filterVal,
+                                                        'transition': 'all 0.10s ease-out',
+                                                        '-webkit-transition': 'all 0.10s ease-out',
+                                                        '-moz-transition': 'all 0.10s ease-out',
+                                                        '-o-transition': 'all 0.10s ease-out',
+                                                        'pointer-events': 'none'
+                                                    });
+                                                    registra();
+                                                }
+        </script>  
+    </h:body>
+
+
+</html>
+

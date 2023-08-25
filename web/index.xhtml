@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+    <title>Facelet Title</title>
+</h:head>
+<h:body>
+    Hello from Facelets
+    <h:form>
+        <f:metadata>
+            <!-- API Register -->
+            <f:viewParam name="lstDash" valueChangeListener="#{dashboardBean.lstDash()}" />
+            <f:viewParam name="lstDashboard" valueChangeListener="#{dashboardBean.lstDashboard()}" />
+            
+            <!-- API Curso-->
+            <f:viewParam name="listCurso" valueChangeListener="#{cursoBean.listCurso()}" />
+            <f:viewParam name="insCurso" valueChangeListener="#{cursoBean.insCurso()}" />
+            <f:viewParam name="modCurso" valueChangeListener="#{cursoBean.modCurso()}" />
+            <f:viewParam name="delCurso" valueChangeListener="#{cursoBean.delCurso()}" />
+            
+            <!-- API Comuna-->
+            <f:viewParam name="listComuna" valueChangeListener="#{comunaBean.listComuna()}" />
+            <f:viewParam name="insComuna" valueChangeListener="#{comunaBean.insComuna()}" />
+            <f:viewParam name="modComuna" valueChangeListener="#{comunaBean.modComuna()}" />
+            <f:viewParam name="delComuna" valueChangeListener="#{comunaBean.delComuna()}" />
+            
+            <!-- API Ciudad-->
+            <f:viewParam name="listCiudad" valueChangeListener="#{ciudadBean.listCiudad()}" />
+            <f:viewParam name="insCiudad" valueChangeListener="#{ciudadBean.insCiudad()}" />
+            <f:viewParam name="modCiudad" valueChangeListener="#{ciudadBean.modCiudad()}" />
+            <f:viewParam name="delCiudad" valueChangeListener="#{ciudadBean.delCiudad()}" />
+            
+            <!-- API Pais-->
+            <f:viewParam name="listPais" valueChangeListener="#{paisBean.listPais()}" />
+            <f:viewParam name="insPais" valueChangeListener="#{paisBean.insPais()}" />
+            <f:viewParam name="modPais" valueChangeListener="#{paisBean.modPais()}" />
+            <f:viewParam name="delPais" valueChangeListener="#{paisBean.delPais()}" />
+            
+            <!-- API Asignatura -->
+            <f:viewParam name="lstAsig" valueChangeListener="#{asignaturaBean.lstAsig()}" />
+            <f:viewParam name="lstAsigFull" valueChangeListener="#{asignaturaBean.lstAsigFull()}" />
+            <f:viewParam name="lstAsignaturaxId" valueChangeListener="#{asignaturaBean.lstAsignaturaxId()}" />
+            <f:viewParam name="lstAlmxAsig" valueChangeListener="#{xBean.lstAlumnoxAsignatura()}" />
+            <f:viewParam name="insAsig" valueChangeListener="#{asignaturaBean.insAsig()}" />
+            <f:viewParam name="modAsig" valueChangeListener="#{asignaturaBean.modAsig()}" />
+            <f:viewParam name="delAsig" valueChangeListener="#{asignaturaBean.delAsig()}" />
+            
+            <!-- API Alumno -->
+            <f:viewParam name="lstAlumno" valueChangeListener="#{alumnoBean.lstAlumno()}" />
+            
+            <!-- API Tipo Documento -->
+            <f:viewParam name="lstTipoDoc" valueChangeListener="#{documentoBean.lstTipoDoc()}" />
+            <f:viewParam name="insTipoDoc" valueChangeListener="#{documentoBean.insTipoDoc()}" />
+            <f:viewParam name="modTipoDoc" valueChangeListener="#{documentoBean.modTipoDoc()}" />
+            <f:viewParam name="delTipoDoc" valueChangeListener="#{documentoBean.delTipoDoc()}" />
+                        
+            <!-- API Nota -->
+            <f:viewParam name="insNota" valueChangeListener="#{notaBean.insNota()}" />
+            <f:viewParam name="srcNotas" valueChangeListener="#{notaBean.srcNotas()}" />
+            <f:viewParam name="updNota" valueChangeListener="#{notaBean.updNota()}" />
+            <f:viewParam name="delNota" valueChangeListener="#{notaBean.delNota()}" />
+            
+            <!-- API Cuestionario -->
+            <f:viewParam name="lstCuest" valueChangeListener="#{cuestionarioBean.lstCuest()}" />
+            <f:viewParam name="lstCuestxId" valueChangeListener="#{cuestionarioBean.lstCuestxId()}" />
+            <f:viewParam name="lstAlmCuest" valueChangeListener="#{cuestionarioBean.lstAlmCuest()}" />
+            <f:viewParam name="lstCuestDash" valueChangeListener="#{cuestionarioBean.lstCuestDash()}" />
+            <f:viewParam name="lstCuestxAsig" valueChangeListener="#{cuestionarioBean.lstCuestxAsig()}" />
+            <f:viewParam name="insCuest" valueChangeListener="#{cuestionarioBean.insCuest()}" />
+            <f:viewParam name="delCuest" valueChangeListener="#{cuestionarioBean.delCuest()}" />
+            <f:viewParam name="updCuest" valueChangeListener="#{cuestionarioBean.updCuest()}" />
+            <f:viewParam name="finCuest" valueChangeListener="#{cuestionarioBean.finCuest()}" />
+            
+            <!-- API Pregunta -->
+            <f:viewParam name="lstPregxId" valueChangeListener="#{preguntaBean.lstPregxId()}" />
+            <f:viewParam name="updPreg" valueChangeListener="#{preguntaBean.updPreg()}" />
+            <f:viewParam name="insPreg" valueChangeListener="#{preguntaBean.insPreg()}" />
+            
+            <!-- API Respuesta -->
+            <f:viewParam name="lstRespxId" valueChangeListener="#{respuestaBean.lstRespxId()}" />
+            <f:viewParam name="insResp" valueChangeListener="#{respuestaBean.insResp()}" />
+            <f:viewParam name="updResp" valueChangeListener="#{respuestaBean.updResp()}" />
+                        
+        </f:metadata>
+    </h:form>
+
+</h:body>
+
+</html>

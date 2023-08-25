@@ -1,0 +1,1008 @@
+<html lang="es">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+            />
+        <title>Cuestionario</title>
+
+        <!-- Custom fonts for this template-->
+        <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"/>
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet"/>
+
+        <!-- Custom styles for this template-->
+        <link href="css/sb-admin-2.min.css" rel="stylesheet" />
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js" type="text/javascript"></script>
+    </head>
+    <body id="page-top">
+        <!-- Page Wrapper -->
+        <div id="wrapper">
+            <!-- Sidebar -->
+            <nav id="sidebar" class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion">
+
+            </nav>
+            <!-- End of Sidebar -->
+
+            <!-- Content Wrapper -->
+            <div id="content-wrapper" class="d-flex flex-column">
+                <!-- Main Content -->
+                <div id="content">
+                    <!-- Topbar -->
+                    <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                        <!-- Sidebar Toggle (Topbar) -->
+                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <h1 class="h3 text-gray-800 mb-0">Cuestionarios</h1>
+                        <!-- Topbar Navbar -->
+                        <ul class="navbar-nav ml-auto">
+                            <div class="topbar-divider d-none d-sm-block"></div>
+
+                            <!-- Nav Item - User Information -->
+                            <li class="nav-item dropdown no-arrow">
+                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small user_x">Usuario</span>
+                                    <img class="img-profile rounded-circle" src="img/undraw_profile.svg"/>
+                                </a>
+                                <!-- Dropdown - User Information -->
+                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Cerrar Sesión
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- End of Topbar -->
+
+                    <!-- Begin Page Content -->
+
+                    <div class="ml-md-3">
+                        <div class="btn-group">
+                            <button class="btn btn-primary" id="btnAddCuest">Crear</button>
+                            <button class="btn btn-primary" id="btnModCuest">Modificar</button>
+                            <button class="btn btn-primary" id="btnDelCuest">Eliminar</button>
+                        </div>
+                    </div>
+
+                    <!--añadir-->
+                    <div id="addCuestionario" class="container" style="display:none;">
+                        <div class="card o-hidden border-0 shadow-lg my-5">
+                            <div class="card-body p-0">
+                                <!-- Nested Row within Card Body -->
+                                <div class="row">
+                                    <div class="col-lg-2 d-none d-lg-block"></div>
+                                    <div class="col-lg-7">
+                                        <div class="p-5">
+                                            <form class="user">
+                                                <div id="selecAsignatura">
+                                                    <div class="text-center">
+                                                        <h1 class="h4 text-gray-900 mb-4">Crear cuestionario</h1>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <div class="col-sm-4 mb-3 mb-sm-0">
+                                                            <select id="docCursoDocum" class="form-control custom-auto-height" onchange="cargarAsig(this.value, 1);">
+                                                                <option value="0" selected>Seleccione curso</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-sm-4 mb-3 mb-sm-0">
+                                                            <select id="docAsigDocum" class="form-control custom-auto-height">
+                                                                <option value="0" selected>Seleccione asignatura</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-sm-4 mb-3 mb-sm-0">
+                                                            <select id="tipoDocDocum" class="form-control custom-auto-height">
+                                                                <option value="0" selected>Seleccione tipo documento</option>
+                                                            </select>
+                                                        </div>                                                        
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <div class="col-sm-12 mb-3 mb-sm-0">
+                                                            <input type="text" class="form-control custom-auto-height" id="descTitulo" placeholder="Ingrese titulo de cuestionario"/> 
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="mt-2">
+                                                    <div id="ingPregun">
+
+                                                    </div>
+                                                    <button type="button" data-toggle="modal" data-target="#addPregModal" class="btn btn-primary btn-user btn-block" id="btnContinuar">Añadir pregunta</button>
+                                                </div>
+                                            </form>
+                                            <hr />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 d-none d-lg-block">
+                                        <div class="p-5">
+                                            <a class="btn btn-primary" id="btnGuardarCuest">Guardar cuestionario</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- modificar -->
+                    <div id="modCuestionario" class="container" style="display:none;">
+                        <div class="card o-hidden border-0 shadow-lg my-5">
+                            <div class="card-body p-0">
+                                <!-- Nested Row within Card Body -->
+                                <div class="row" id="selctMod">
+                                    <div class="col-lg-2 d-none d-lg-block"></div>
+                                    <div class="col-lg-7">
+                                        <div class="p-5">
+                                            <form class="user">
+                                                <div id="delSelCuest">
+                                                    <div class="text-center">
+                                                        <h1 class="h4 text-gray-900 mb-4">Seleccionar cuestionario</h1>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <div class="col-sm-4 mb-3 mb-sm-0">
+                                                            <select id="docCursoMod" class="form-control custom-auto-height" onchange="cargarAsig(this.value, 2);">
+                                                                <option value="0" selected>Seleccione curso</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-sm-4 mb-3 mb-sm-0">
+                                                            <select id="docAsigSelMod" class="form-control custom-auto-height" onchange="cargarCuest(this.value, 2);">
+                                                                <option value="0" selected>Seleccione asignatura</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-sm-4 mb-3 mb-sm-0">
+                                                            <select id="selCuestMod" class="form-control custom-auto-height selCuest">
+                                                                <option value="0" selected>Seleccione cuestionario</option>
+                                                            </select>
+                                                        </div>                                                  
+                                                    </div>
+                                                </div>
+                                                <div class="mt-2">
+                                                    <button type="button" class="btn btn-primary btn-block" id="btnModificarCuest">Modificar cuestionario</button>
+                                                </div>
+                                            </form>
+                                            <hr />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 d-none d-lg-block">
+                                    </div>
+                                </div>
+                                <div class="row" id="divMod" style="display:none;">
+                                    <div class="col-lg-2 d-none d-lg-block"></div>
+                                    <div class="col-lg-7">
+                                        <div class="p-5">
+                                            <form class="user">
+                                                <div id="selecAsignatura">
+
+                                                    <div class="text-center">
+                                                        <h1 class="h4 text-gray-900 mb-4">Modificar cuestionario</h1>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <div class="col-sm-6 mb-3 mb-sm-0">
+                                                            <select id="docAsigMod" class="form-control custom-auto-height">
+                                                                <option value="0" selected>Seleccione asignatura</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-sm-6 mb-3 mb-sm-0">
+                                                            <select id="tipoDocMod" class="form-control custom-auto-height">
+                                                                <option value="0" selected>Seleccione tipo documento</option>
+                                                            </select>
+                                                        </div>                                                        
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <div class="col-sm-12 mb-3 mb-sm-0">
+                                                            <input type="text" class="form-control custom-auto-height" id="descTituloMod" placeholder="Ingrese titulo de cuestionario"/> 
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="mt-2">
+                                                    <div id="inModPreg">
+
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <hr />
+
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 d-none d-lg-block">
+                                        <div class="p-5">
+                                            <a class="btn btn-primary" id="btnMod">Guardar cuestionario</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--eliminar-->
+                    <div id="delCuestionario" class="container" style="display:none;">
+                        <div class="card o-hidden border-0 shadow-lg my-5">
+                            <div class="card-body p-0">
+                                <!-- Nested Row within Card Body -->
+                                <div class="row">
+                                    <div class="col-lg-2 d-none d-lg-block"></div>
+                                    <div class="col-lg-7">
+                                        <div class="p-5">
+                                            <form class="user">
+
+                                                <div id="delSelCuest">
+                                                    <div class="text-center">
+                                                        <h1 class="h4 text-gray-900 mb-4">Seleccionar cuestionario</h1>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <div class="col-sm-4 mb-3 mb-sm-0">
+                                                            <select id="docCursoDel" class="form-control custom-auto-height" onchange="cargarAsig(this.value, 3);">
+                                                                <option value="0" selected>Seleccione curso</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-sm-4 mb-3 mb-sm-0">
+                                                            <select id="docAsigDel" class="form-control custom-auto-height" onchange="cargarCuest(this.value, 3);">
+                                                                <option value="0" selected>Seleccione asignatura</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-sm-4 mb-3 mb-sm-0">
+                                                            <select id="selCuestDel" class="form-control custom-auto-height selCuest">
+                                                                <option value="0" selected>Seleccione cuestionario</option>
+                                                            </select>
+                                                        </div>                                              
+                                                    </div>
+                                                    <div class="mt-2">
+                                                        <button type="button" class="btn btn-danger btn-block" id="btnEliminarCuest">Eliminar cuestionario</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <hr />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 d-none d-lg-block"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal" id="addPregModal" data-backdrop="static" style="display: none;" tabindex="-1">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+
+                                <!-- Cabecera del Modal -->
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Añadir pregunta</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+
+                                <!-- Contenido del Modal -->
+                                <div class="modal-body">
+                                    <div id="modalPregunta">
+                                        <p>Pregunta</p>
+                                        <textarea id="descripcionPregunta" maxlength="200" class="form-control custom-auto-height" style="resize:none;"></textarea>
+                                        <br/>
+                                    </div>
+                                    <div id="modalRespuesta">
+                                        <p>Ingrese y seleccione la alternativa correcta</p>
+                                        <div id="inserRespuestas">
+
+                                        </div>
+                                        <a href="#" class="btn btn-danger btn-user" id="btndelResp">Eliminar Respuesta</a>
+                                        <a href="#" onclick="addResp();" class="btn btn-primary btn-user" id="btnAddResp">Añadir Respuesta</a>
+                                    </div>
+
+                                </div>
+                                <!-- Pie del Modal -->
+                                <div class="modal-footer">
+                                    <button type="button" onclick="limpiar();" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                    <button type="button" class="btn btn-primary" id="btnSaveP">Guardar</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal" id="delCuest" data-backdrop="static" style="display: none;" tabindex="-1">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+
+                                <!-- Cabecera del Modal -->
+                                <div class="modal-header">
+                                    <h4 class="modal-title">¿Está seguro?</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+
+                                <!-- Contenido del Modal -->
+                                <div class="modal-body">
+                                    <p>¿Está seguro de elminar el cuestionario seleccionado?</p>
+                                </div>
+                                <!-- Pie del Modal -->
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                    <button type="button" class="btn btn-danger" id="btnConfEliminar" onclick="eliminarCuestionario();" >Eliminar</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- /.container-fluid -->
+                </div>
+                <!-- End of Main Content -->
+
+                <!-- End of Footer -->
+            </div>
+            <!-- End of Content Wrapper -->
+        </div>
+        <!-- End of Page Wrapper -->
+
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+
+        <!-- Logout Modal-->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">¿Seguro que quieres cerrar sesión?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Selecciona "Cerrar Sesión" si estas listo para finalizar la sesión.
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">
+                            Cancelar
+                        </button>
+                        <a class="btn btn-primary" href="logout.xhtml">Cerrar Sesión</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="js/global.js"></script>
+        <!-- Bootstrap core JavaScript-->
+        <script src="vendor/jquery/jquery.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Core plugin JavaScript-->
+        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+        <!-- Custom scripts for all pages-->
+        <script src="js/sb-admin-2.min.js"></script>
+        <script>
+                                        var userx;
+                                        var api_cargar_tipo_documento = link + "index.xhtml?lstTipoDoc=";
+                                        var api_cargar_asignatura = link + "index.xhtml?lstAsig=";
+                                        var api_cargar_curso = link + "index.xhtml?listCurso=";
+                                        var api_cargar_cuestionario = link + "index.xhtml?lstCuest=";
+                                        var api_cargar_cuestionario_id = link + "index.xhtml?lstCuestxId=";
+                                        var api_insertar_pregunta = link + "index.xhtml?insPreg=";
+                                        var api_insertar_respuesta = link + "index.xhtml?insResp=";
+                                        var api_insertar_cuestionario = link + "index.xhtml?insCuest=";
+                                        var api_eliminar_cuestionario = link + "index.xhtml?delCuest=";
+                                        var api_cargar_pregunta_id = link + "index.xhtml?lstPregxId=";
+                                        var api_cargar_respuesta_id = link + "index.xhtml?lstRespxId=";
+                                        document.addEventListener("DOMContentLoaded", function () {
+                                            userx = localStorage.getItem("nameUser");
+                                            if (userx !== null || userx !== undefined) {
+                                                if (userx.split(",")[2] == "Alumno") {
+                                                    window.location.href = 'indexAlumno.html';
+                                                }
+                                                $(".user_x").text(userx.split(",")[0]);
+                                                $("#sidebar").load(userx.split(",")[4]);
+                                                cargarDocumento();
+                                            }
+                                        });
+                                        var arrPreg = [];
+                                        let counter = 0;
+                                        let prgCounter = 0;
+                                        function addResp() {
+                                            const newDiv = document.createElement('div');
+                                            const newDiv2 = document.createElement('div');
+                                            newDiv.classList.add("form-group", "row", "align-items-center", "pl-3");
+                                            newDiv2.setAttribute('class', "col-sm-10");
+                                            newDiv.setAttribute('id', `divs_${counter}`);
+                                            const input = document.createElement('input');
+                                            const input2 = document.createElement('input');
+                                            const inputId = `pd_${counter}`;
+                                            const inputcId = `pc_${counter}`;
+                                            input.setAttribute('type', 'checkbox');
+                                            input.setAttribute('id', inputcId);
+                                            input2.setAttribute('type', 'text');
+                                            input2.setAttribute('id', inputId);
+                                            input2.setAttribute('class', 'form-control');
+                                            newDiv2.appendChild(input2);
+                                            newDiv.appendChild(input);
+                                            newDiv.appendChild(newDiv2);
+                                            const container = document.getElementById('inserRespuestas');
+                                            container.appendChild(newDiv);
+                                            counter++;
+                                        }
+
+                                        $("#btnAddCuest").click(function () {
+                                            $("#delCuestionario").hide('slow');
+                                            $("#modCuestionario").hide('slow');
+                                            $("#addCuestionario").show('slow');
+                                        });
+
+                                        $("#btnModCuest").click(function () {
+                                            var parent = document.getElementById("inModPreg");
+                                            if (parent !== null) {
+                                                var childDiv = parent.querySelector(".x1");
+                                                while (childDiv) {
+                                                    childDiv = parent.querySelector(".x1");
+                                                    if (childDiv !== null) {
+                                                        childDiv.remove();
+                                                    } else {
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                            $("#selctMod").show("slow");
+                                            $("#divMod").hide("slow");
+                                            $("#delCuestionario").hide('slow');
+                                            $("#addCuestionario").hide('slow');
+                                            $("#modCuestionario").show('slow');
+                                            loadSpinnerMod();
+                                        });
+
+                                        $("#btnDelCuest").click(function () {
+                                            $("#delCuestionario").show('slow');
+                                            $("#modCuestionario").hide('slow');
+                                            $("#addCuestionario").hide('slow');
+                                        });
+
+                                        function limpiar() {
+                                            counter = 0;
+                                            $("#descripcionPregunta").val("");
+                                            $("#inserRespuestas").empty();
+                                        }
+
+                                        function cargarDocumento() {
+                                            $("#tipoDocDocum").empty().append('<option value="0" selected>Seleccione tipo documento</option>');
+                                            $.ajaxSetup({async: false});
+                                            $.getJSON(api_cargar_tipo_documento, function (data) {
+                                                $.each(data, function (x, item) {
+                                                    const optionObj = document.createElement("option");
+                                                    optionObj.value = item.idTipoDocumento;
+                                                    optionObj.text = item.descripcion;
+                                                    document.getElementById("tipoDocDocum").appendChild(optionObj);
+                                                });
+                                            });
+                                            $("#docCursoDocum").empty().append('<option value="0" selected>Seleccione curso</option>');
+                                            $("#docCursoMod").empty().append('<option value="0" selected>Seleccione curso</option>');
+                                            $("#docCursoDel").empty().append('<option value="0" selected>Seleccione curso</option>');
+                                            $.ajaxSetup({async: false});
+                                            $.getJSON(api_cargar_curso, function (data) {
+                                                $.each(data, function (x, item) {
+                                                    const optionObj = document.createElement("option");
+                                                    optionObj.value = item.idCurso;
+                                                    optionObj.text = item.descripcion;
+                                                    document.getElementById("docCursoDocum").appendChild(optionObj.cloneNode(true));
+                                                    document.getElementById("docCursoMod").appendChild(optionObj.cloneNode(true));
+                                                    document.getElementById("docCursoDel").appendChild(optionObj.cloneNode(true));
+                                                });
+                                            });
+                                        }
+
+                                        function loadSpinnerMod() {
+                                            $("#tipoDocMod").empty().append('<option value="0" selected>Seleccione tipo documento</option>');
+                                            $.ajaxSetup({async: false});
+                                            $.getJSON(api_cargar_tipo_documento, function (data) {
+                                                $.each(data, function (x, item) {
+                                                    const optionObj = document.createElement("option");
+                                                    optionObj.value = item.idTipoDocumento;
+                                                    optionObj.text = item.descripcion;
+                                                    document.getElementById("tipoDocMod").appendChild(optionObj);
+                                                });
+                                            });
+                                            $("#docAsigMod").empty().append('<option value="0" selected>Seleccione asignatura</option>');
+                                            $.ajaxSetup({async: false});
+                                            $.getJSON(api_cargar_asignatura, function (data) {
+                                                $.each(data, function (x, item) {
+                                                    const optionObj = document.createElement("option");
+                                                    optionObj.value = item.idAsignatura;
+                                                    optionObj.text = item.descripcion;
+                                                    document.getElementById("docAsigMod").appendChild(optionObj);
+                                                });
+                                            });
+                                        }
+
+                                        $("#btndelResp").click(function () {
+                                            counter--;
+                                            let ids = 'divs_' + counter + '';
+                                            var div = document.getElementById(ids);
+                                            if (div !== null) {
+                                                var parent = div.parentElement;
+                                                parent.removeChild(div);
+                                            }
+                                        });
+
+                                        $("#btnSaveP").click(function () {
+                                            var error = 0;
+                                            var jsArr = [];
+                                            if ($('#descripcionPregunta').val().length == 0) {
+                                                error = error + 1;
+                                                $('#descripcionPregunta').attr('style', 'border-color:red');
+                                            } else {
+                                                $('#descripcionPregunta').removeAttr('style', 'border-color:red');
+                                            }
+                                            for (var i = 0; i < counter; i++) {
+                                                if ($("#pd_" + i).val().length == 0) {
+                                                    error = error + 1;
+                                                    $("#pd_" + i).attr('style', 'border-color:red');
+                                                } else {
+                                                    var objJs = {};
+                                                    $("#pd_" + i).removeAttr('style', 'border-color:red');
+                                                    objJs["pregdesc"] = $("#pd_" + i).val();
+                                                    objJs["pregchek"] = $("#pc_" + i).prop("checked");
+                                                    jsArr.push(objJs);
+                                                }
+                                            }
+                                            if (error != 0) {
+                                                swal("Oops!", "Debes completar el formulario!", "error");
+                                            } else {
+                                                let made = [{"descPreg": $('#descripcionPregunta').val(), "docCuest": $('#docCuest').val()}];
+                                                $.ajaxSetup({async: false});
+                                                $.ajax({
+                                                    type: "POST",
+                                                    url: api_insertar_pregunta + encodeURIComponent(JSON.stringify(made)) + '',
+                                                    data: encodeURIComponent(JSON.stringify(made)),
+                                                    dataType: 'json',
+                                                    success: function (result) {
+                                                        arrPreg.push(result.idPreg);
+                                                        insertRespuesta(jsArr, result.idPreg);
+                                                    },
+                                                    error: function (err) {
+                                                        if (err.status != '200') {
+                                                            swal("Oops!", "Ha ocurrido un error!", "error");
+                                                        }
+                                                    }
+                                                });
+                                            }
+                                        });
+
+                                        var api_cargar_asignaturaId = link + "index.xhtml?lstAsignaturaxId=";
+                                        function cargarAsig(idC, op) {
+                                            if (op == 1) {
+                                                $("#docAsigDocum").empty().append('<option value="0" selected>Seleccione asignatura</option>');
+                                                if (idC != 0) {
+                                                    $.ajaxSetup({async: false});
+                                                    $.getJSON(api_cargar_asignaturaId + idC + "", function (data) {
+                                                        $.each(data, function (x, item) {
+                                                            const optionObj = document.createElement("option");
+                                                            optionObj.value = item.idAsignatura;
+                                                            optionObj.text = item.descripcion;
+                                                            document.getElementById("docAsigDocum").appendChild(optionObj);
+                                                        });
+                                                    });
+                                                }
+                                            } else if (op == 2) {
+                                                $("#docAsigSelMod").empty().append('<option value="0" selected>Seleccione asignatura</option>');
+                                                if (idC != 0) {
+                                                    $.ajaxSetup({async: false});
+                                                    $.getJSON(api_cargar_asignaturaId + idC + "", function (data) {
+                                                        $.each(data, function (x, item) {
+                                                            const optionObj = document.createElement("option");
+                                                            optionObj.value = item.idAsignatura;
+                                                            optionObj.text = item.descripcion;
+                                                            document.getElementById("docAsigSelMod").appendChild(optionObj);
+                                                        });
+                                                    });
+                                                }
+                                            } else if (op == 3) {
+                                                $("#docAsigDel").empty().append('<option value="0" selected>Seleccione asignatura</option>');
+                                                if (idC != 0) {
+                                                    $.ajaxSetup({async: false});
+                                                    $.getJSON(api_cargar_asignaturaId + idC + "", function (data) {
+                                                        $.each(data, function (x, item) {
+                                                            const optionObj = document.createElement("option");
+                                                            optionObj.value = item.idAsignatura;
+                                                            optionObj.text = item.descripcion;
+                                                            document.getElementById("docAsigDel").appendChild(optionObj);
+                                                        });
+                                                    });
+                                                }
+                                            }
+
+                                        }
+                                        var api_cargar_cuestionarioId = link + "index.xhtml?lstCuestxAsig=";
+                                        function cargarCuest(idA, op) {
+                                            if (op == 2) {
+                                                $("#selCuestMod").empty().append('<option value="0" selected>Seleccione cuestionario</option>');
+                                                if (idA != 0) {
+                                                    $.ajaxSetup({async: false});
+                                                    $.getJSON(api_cargar_cuestionarioId + idA + "", function (data) {
+                                                        $.each(data, function (x, item) {
+                                                            const optionObj = document.createElement("option");
+                                                            optionObj.value = item.idCuestionario;
+                                                            optionObj.text = item.detalle;
+                                                            document.getElementById("selCuestMod").appendChild(optionObj);
+                                                        });
+                                                    });
+                                                }
+                                            } else if (op == 3) {
+                                                $("#selCuestDel").empty().append('<option value="0" selected>Seleccione cuestionario</option>');
+                                                if (idA != 0) {
+                                                    $.ajaxSetup({async: false});
+                                                    $.getJSON(api_cargar_cuestionarioId + idA + "", function (data) {
+                                                        $.each(data, function (x, item) {
+                                                            const optionObj = document.createElement("option");
+                                                            optionObj.value = item.idCuestionario;
+                                                            optionObj.text = item.detalle;
+                                                            document.getElementById("selCuestDel").appendChild(optionObj);
+                                                        });
+                                                    });
+                                                }
+                                            }
+                                        }
+
+                                        function insertRespuesta(jsonArray, idPregunta) {
+                                            var made = [];
+                                            const divPadre = document.getElementById("ingPregun");
+                                            const newDiv = document.createElement("div");
+                                            const newDiv2 = document.createElement("div");
+                                            var newp = document.createElement("p");
+                                            const newtext = document.createElement("textarea");
+                                            var newinput = document.createElement("input");
+                                            newDiv.setAttribute("class", "mb-3");
+                                            newtext.classList.add("form-control", "custom-auto-height");
+                                            newtext.setAttribute('style', "resize:none;");
+                                            newtext.setAttribute('readonly', 'true');
+                                            newtext.value = $("#descripcionPregunta").val();
+                                            newp.innerHTML = '';
+                                            newDiv.appendChild(document.createElement("p").appendChild(document.createTextNode("Pregunta")));
+                                            newDiv.appendChild(newtext);
+                                            newp.innerHTML = '';
+                                            newp.appendChild(document.createTextNode("Respuestas"));
+                                            newDiv2.appendChild(newp);
+                                            newinput.setAttribute("type", "text");
+                                            jsonArray.forEach(function (item) {
+                                                made = [];
+                                                made = [{"respDesc": item.pregdesc, "respCheck": item.pregchek, "idPregunta": idPregunta}];
+                                                $.ajaxSetup({async: false});
+                                                $.ajax({
+                                                    type: "POST",
+                                                    url: api_insertar_respuesta + encodeURIComponent(JSON.stringify(made)) + '',
+                                                    data: encodeURIComponent(JSON.stringify(made)),
+                                                    dataType: 'json',
+                                                    success: function (result) {
+                                                        result.status;
+                                                    },
+                                                    error: function (err) {
+                                                        if (err.status != '200') {
+                                                            swal("Oops!", "Ha ocurrido un error inesperado!", "error");
+                                                        }
+                                                    }
+                                                });
+                                                newinput = document.createElement("input");
+                                                newinput.setAttribute("type", "text");
+                                                newinput.setAttribute('readonly', 'true');
+                                                newinput.classList.add("form-control", "custom-auto-height", "mb-1");
+                                                if (item.pregchek) {
+                                                    newinput.setAttribute('style', 'border-color:green;');
+                                                }
+                                                newinput.value = item.pregdesc;
+                                                newDiv2.appendChild(newinput);
+                                            });
+                                            $("#addPregModal").modal('hide');
+                                            limpiar();
+                                            divPadre.appendChild(newDiv);
+                                            divPadre.appendChild(newDiv2);
+                                        }
+
+                                        $("#btnGuardarCuest").click(function () {
+                                            var error = 0;
+                                            if ($('#docCursoDocum').val() == "0") {
+                                                error = error + 1;
+                                                $('#docCursoDocum').attr('style', 'border-color:red');
+                                            } else {
+                                                $('#docCursoDocum').removeAttr('style', 'border-color:red');
+                                            }
+                                            if ($('#docAsigDocum').val() == "0") {
+                                                error = error + 1;
+                                                $('#docAsigDocum').attr('style', 'border-color:red');
+                                            } else {
+                                                $('#docAsigDocum').removeAttr('style', 'border-color:red');
+                                            }
+                                            if ($('#tipoDocDocum').val() == "0") {
+                                                error = error + 1;
+                                                $('#tipoDocDocum').attr('style', 'border-color:red');
+                                            } else {
+                                                $('#tipoDocDocum').removeAttr('style', 'border-color:red');
+                                            }
+                                            if ($('#descTitulo').val().length == 0) {
+                                                error = error + 1;
+                                                $('#descTitulo').attr('style', 'border-color:red');
+                                            } else {
+                                                $('#descTitulo').removeAttr('style', 'border-color:red');
+                                            }
+                                            if (error != 0) {
+                                                swal("Oops!", "Debes completar el formulario!", "error");
+                                            }
+                                            var div = document.getElementById("ingPregun");
+                                            var contenido = div.innerHTML.trim();
+                                            if (contenido === '') {
+                                                swal("Oops!", "Debes añadir al menos una pregunta!", "error");
+                                            } else {
+                                                let made = [{"docAsigDocum": $('#docAsigDocum').val(), "tipoDocDocum": $('#tipoDocDocum').val(), "descTitulo": $('#descTitulo').val(), "preguntas": arrPreg}];
+                                                $.ajaxSetup({async: false});
+                                                $.ajax({
+                                                    type: "POST",
+                                                    url: api_insertar_cuestionario + encodeURIComponent(JSON.stringify(made)) + '',
+                                                    data: encodeURIComponent(JSON.stringify(made)),
+                                                    dataType: 'json',
+                                                    success: function (result) {
+                                                        result.status;
+                                                    },
+                                                    error: function (err) {
+                                                        if (err.status == '200') {
+                                                            swal("Bien!", "Se ha creado correctamente el cuestionario!", "success");
+                                                            setTimeout(function () {
+                                                                location.reload();
+                                                            }, 1000);
+                                                        } else {
+                                                            swal("Oops!", "Ha ocurrido un error!", "error");
+                                                        }
+                                                    }
+                                                });
+                                                $("#btnContinuar").attr("disabled");
+                                            }
+                                        });
+
+                                        function eliminarCuestionario() {
+                                            let made = [{"idCuestionario": $('#selCuestDel').val()}];
+                                            $.ajaxSetup({async: false});
+                                            $.ajax({
+                                                type: "POST",
+                                                url: api_eliminar_cuestionario + encodeURIComponent(JSON.stringify(made)) + '',
+                                                data: encodeURIComponent(JSON.stringify(made)),
+                                                dataType: 'json',
+                                                success: function (result) {
+                                                    result.status;
+                                                },
+                                                error: function (err) {
+                                                    if (err.status == '200') {
+                                                        $("#delCuest").modal('hide');
+                                                        if (err.responseText == "OK") {
+                                                            swal("Bien!", "Se ha eliminado correctamente el cuestionario!", "success");
+                                                        } else if (err.responseText == "XX") {
+                                                            swal("Cuidado!", "Puede que existan notas para este cuestionario!", "warning");
+                                                        }
+                                                        setTimeout(function () {
+                                                            location.reload();
+                                                        }, 1000);
+                                                    } else {
+                                                        swal("Oops!", "Ha ocurrido un error, puede que tenga notas!", "error");
+                                                    }
+                                                }
+                                            });
+                                        }
+
+                                        $("#btnModificarCuest").click(function () {
+                                            var error = 0;
+                                            if ($('#docCursoMod').val() == "0") {
+                                                error = error + 1;
+                                                $('#docCursoMod').attr('style', 'border-color:red');
+                                            } else {
+                                                $('#docCursoMod').removeAttr('style', 'border-color:red');
+                                            }
+                                            if ($('#docAsigSelMod').val() == "0") {
+                                                error = error + 1;
+                                                $('#docAsigSelMod').attr('style', 'border-color:red');
+                                            } else {
+                                                $('#docAsigSelMod').removeAttr('style', 'border-color:red');
+                                            }
+                                            if ($('#selCuestMod').val() == "0") {
+                                                error = error + 1;
+                                                $('#selCuestMod').attr('style', 'border-color:red');
+                                            } else {
+                                                $('#selCuestMod').removeAttr('style', 'border-color:red');
+                                            }
+                                            if (error != 0) {
+                                                swal("Oops!", "Debes seleccionar las opciones!", "error");
+                                            } else {
+                                                $("#selctMod").hide("slow");
+                                                $("#divMod").show("slow");
+                                                loadFullCuest();
+                                            }
+                                        });
+
+                                        $("#btnEliminarCuest").click(function () {
+                                            var error = 0;
+                                            if ($('#docCursoDel').val() == "0") {
+                                                error = error + 1;
+                                                $('#docCursoDel').attr('style', 'border-color:red');
+                                            } else {
+                                                $('#docCursoDel').removeAttr('style', 'border-color:red');
+                                            }
+                                            if ($('#docAsigDel').val() == "0") {
+                                                error = error + 1;
+                                                $('#docAsigDel').attr('style', 'border-color:red');
+                                            } else {
+                                                $('#docAsigDel').removeAttr('style', 'border-color:red');
+                                            }
+                                            if ($('#selCuestDel').val() == "0") {
+                                                error = error + 1;
+                                                $('#selCuestDel').attr('style', 'border-color:red');
+                                            } else {
+                                                $('#selCuestDel').removeAttr('style', 'border-color:red');
+                                            }
+                                            if (error != 0) {
+                                                swal("Oops!", "Debes seleccionar las opciones!", "error");
+                                            } else {
+                                                $("#delCuest").modal("show");
+                                            }
+                                        });
+
+                                        var jsonX = [];
+                                        var jsonY = [];
+                                        var jsonZ = [];
+                                        function loadFullCuest() {
+                                            jsonX = [];
+                                            jsonY = [];
+                                            jsonZ = [];
+                                            var divPadre = document.getElementById("inModPreg");
+                                            $.ajaxSetup({async: false});
+                                            var id = $("#selCuestMod").val();
+                                            $.getJSON(api_cargar_cuestionario_id + id + "", function (data) {
+                                                $.each(data, function (x, item) {
+                                                    jsonX.push({
+                                                        meta: item
+                                                    });
+                                                });
+                                            });
+                                            $("#selctMod").hide("slow");
+                                            $("#divMod").show("slow");
+                                            $("#docAsigMod").val(jsonX[0].meta.idAsignatura);
+                                            $("#tipoDocMod").val(jsonX[0].meta.idTipoDocumento);
+                                            $("#descTituloMod").val(jsonX[0].meta.descripcion);
+                                            $.getJSON(api_cargar_pregunta_id + jsonX[0].meta.idCuestionario + "", function (data) {
+                                                $.each(data, function (x, item) {
+                                                    jsonY.push({
+                                                        meta: item
+                                                    });
+                                                });
+                                            });
+                                            for (var i = 0; i < jsonY.length; i++) {
+                                                var newDiv = document.createElement("div");
+                                                var newDiv2 = document.createElement("div");
+                                                var newDiv3 = document.createElement("div");
+                                                var newCheckbox = document.createElement("input");
+                                                var newinput = document.createElement("input");
+                                                var newp = document.createElement("p");
+                                                var newtext = document.createElement("textarea");
+                                                newDiv.setAttribute("class", "x1");
+                                                newtext.classList.add("form-control", "custom-auto-height", "mb-2");
+                                                newtext.setAttribute("style", "resize:none;");
+                                                newtext.setAttribute("id", "pregDesc_" + jsonY[i].meta.idPregunta);
+                                                newtext.value = jsonY[i].meta.descripcion;
+                                                newp.appendChild(document.createTextNode("Pregunta"));
+                                                newDiv.appendChild(newp);
+                                                newDiv.appendChild(newtext);
+                                                $.getJSON(api_cargar_respuesta_id + jsonY[i].meta.idPregunta + "", function (data) {
+                                                    $.each(data, function (x, item) {
+                                                        jsonZ.push({
+                                                            meta: item
+                                                        });
+                                                        newDiv2 = document.createElement("div");
+                                                        newDiv2.classList.add("form-group", "row", "align-items-center", "pl-3");
+                                                        newDiv3 = document.createElement("div");
+                                                        newDiv3.setAttribute("class", "col-sm-10");
+                                                        newCheckbox = document.createElement("input");
+                                                        newCheckbox.setAttribute("type", "checkbox");
+                                                        newCheckbox.setAttribute("id", "respCheck_" + item.idRespuesta);
+                                                        newCheckbox.checked = item.estado == 1 ? true : false;
+                                                        newinput = document.createElement("input");
+                                                        newinput.setAttribute("type", "text");
+                                                        newinput.setAttribute("class", "form-control");
+                                                        newinput.value = item.descripcion;
+                                                        newinput.setAttribute("kid", item.idRespuesta);
+                                                        newinput.setAttribute("id", "respDesc_" + item.idRespuesta);
+                                                        newDiv2.appendChild(newCheckbox);
+                                                        newDiv3.appendChild(newinput);
+                                                        newDiv2.appendChild(newDiv3);
+                                                        newDiv.appendChild(newDiv2);
+                                                    });
+                                                    divPadre.appendChild(newDiv);
+                                                });
+                                            }
+                                        }
+
+                                        var api_update_respuesta = link + "index.xhtml?updResp=";
+                                        var api_update_pregunta = link + "index.xhtml?updPreg=";
+                                        var api_update_cuestionario = link + "index.xhtml?updCuest=";
+                                        $("#btnMod").click(function () {
+                                            var errorR = 0;
+                                            var errorP = 0;
+                                            var error = 0;
+                                            let made = [];
+                                            for (var i = 0; i < jsonZ.length; i++) {
+                                                made = [];
+                                                made = [{"idRespuesta": jsonZ[i].meta.idRespuesta, "respDesc": $('#respDesc_' + jsonZ[i].meta.idRespuesta).val(), "respCheck": $('#respCheck_' + jsonZ[i].meta.idRespuesta).prop("checked")}];
+                                                $.ajaxSetup({async: false});
+                                                $.ajax({
+                                                    type: "POST",
+                                                    url: api_update_respuesta + encodeURIComponent(JSON.stringify(made)) + '',
+                                                    data: encodeURIComponent(JSON.stringify(made)),
+                                                    dataType: 'json',
+                                                    success: function (result) {
+                                                        result.status;
+                                                    },
+                                                    error: function (err) {
+                                                        if (err.status != '200') {
+                                                            errorR++;
+                                                            swal("Oops!", "Ha ocurrido un error!", "error");
+                                                        }
+                                                    }
+                                                });
+                                            }
+                                            for (var i = 0; i < jsonY.length; i++) {
+                                                made = [];
+                                                made = [{"idPregunta": jsonY[i].meta.idPregunta, "descPreg": $('#pregDesc_' + jsonY[i].meta.idPregunta).val()}];
+                                                $.ajaxSetup({async: false});
+                                                $.ajax({
+                                                    type: "POST",
+                                                    url: api_update_pregunta + encodeURIComponent(JSON.stringify(made)) + '',
+                                                    data: encodeURIComponent(JSON.stringify(made)),
+                                                    dataType: 'json',
+                                                    success: function (result) {
+                                                        result.status;
+                                                    },
+                                                    error: function (err) {
+                                                        if (err.status != '200') {
+                                                            errorP++;
+                                                            swal("Oops!", "Ha ocurrido un error!", "error");
+                                                        }
+                                                    }
+                                                });
+                                            }
+                                            made = [];
+                                            made = [{"idCuestionario": jsonX[0].meta.idCuestionario, "asigCuest": $("#docAsigMod").val(), "tipoDocCuest": $("#tipoDocMod").val(), "descCuest": $('#descTituloMod').val()}];
+                                            $.ajaxSetup({async: false});
+                                            $.ajax({
+                                                type: "POST",
+                                                url: api_update_cuestionario + encodeURIComponent(JSON.stringify(made)) + '',
+                                                data: encodeURIComponent(JSON.stringify(made)),
+                                                dataType: 'json',
+                                                success: function (result) {
+                                                    result.status;
+                                                },
+                                                error: function (err) {
+                                                    if (err.status != '200') {
+                                                        error++;
+                                                        swal("Oops!", "Ha ocurrido un error!", "error");
+                                                    }
+                                                }
+                                            });
+                                            if (error != 0 && errorP != 0 && errorR != 0) {
+                                                swal("Oops!", "Ha ocurrido un error al modificar el cuestionario!", "error");
+                                            } else if (error == 0 && errorP == 0 && errorR != 0) {
+                                                swal("Oops!", "Ha ocurrido un error al modificar las respuestas!", "error");
+                                            } else if (error == 0 && errorP != 0 && errorR == 0) {
+                                                swal("Oops!", "Ha ocurrido un error al modificar las preguntas!", "error");
+                                            } else {
+                                                var parent = document.getElementById("inModPreg");
+                                                if (parent !== null) {
+                                                    var childDiv = parent.querySelector(".x1");
+                                                    while (childDiv) {
+                                                        childDiv = parent.querySelector(".x1");
+                                                        if (childDiv !== null) {
+                                                            childDiv.remove();
+                                                        } else {
+                                                            break;
+                                                        }
+                                                    }
+                                                }
+                                                $("#selctMod").show("slow");
+                                                $("#divMod").hide("slow");
+                                                swal("Bien!", "Se ha modificado el cuestionario correctamente!", "success");
+                                                setTimeout(function () {
+                                                    location.reload();
+                                                }, 1000);
+                                            }
+                                        });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+        <title>Asignatura</title>
+
+        <!-- Custom fonts for this template-->
+        <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"/>
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet"/>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js" type="text/javascript"></script>
+        <!-- Custom styles for this template-->
+        <link href="css/sb-admin-2.min.css" rel="stylesheet"/>
+    </head>
+
+    <body id="page-top">
+        <!-- Page Wrapper -->
+        <div id="wrapper">
+            <!-- Sidebar -->
+            <nav id="sidebar" class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion">
+
+            </nav>
+            <!-- End of Sidebar -->
+
+            <!-- Content Wrapper -->
+            <div id="content-wrapper" class="d-flex flex-column">
+                <!-- Main Content -->
+                <div id="content">
+                    <!-- Topbar -->
+                    <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                        <!-- Sidebar Toggle (Topbar) -->
+                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                            <i class="fa fa-bars"></i>
+                        </button>
+
+                        <!-- Topbar Navbar -->
+                        <ul class="navbar-nav ml-auto">
+                            <div class="topbar-divider d-none d-sm-block"></div>
+
+                            <!-- Nav Item - User Information -->
+                            <li class="nav-item dropdown no-arrow">
+                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+                                   aria-haspopup="true" aria-expanded="false">
+                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small user_x">Usuario</span>
+                                    <img class="img-profile rounded-circle" src="img/undraw_profile.svg"/>
+                                </a>
+                                <!-- Dropdown - User Information -->
+                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Cerrar Sesión
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- End of Topbar -->
+
+                    <!-- Begin Page Content -->
+                    <div class="container-fluid" id="asig">
+
+
+                        <!-- Content Row -->
+                        <div class="row">
+                            <div class="col-xl-3 col-md-6 mb-4">
+                                <div class="card border-left-primary shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                    <p>Asignatura</p>
+                                                </div>
+                                                <select id="selAsig" class="form-control custom-auto-height" onchange="cargarTabla(this.value);">
+                                                    <option value="0" selected>Seleccione asignatura</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Content Row -->
+
+                        <div class="row" id="graficos" style="display:none;">
+                            <!-- Area Chart -->
+                            <div class="col-xl-8 col-lg-7">
+                                <div class="card shadow mb-4">
+                                    <!-- Card Header - Dropdown -->
+                                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                        <h6 class="m-0 font-weight-bold text-primary">
+                                            Cuestionarios
+                                        </h6>
+                                    </div>
+                                    <!-- Card Body -->
+                                    <div class="card-body">
+                                        <table id="datatables-buttons" class="table table-bordered" width="100%" cellspacing="0">
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Pie Chart -->
+                            <div class="col-xl-4 col-lg-5">
+                                <div class="card shadow mb-4">
+                                    <!-- Card Header - Dropdown -->
+                                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                        <h6 class="m-0 font-weight-bold text-primary">
+                                            Aprobados
+                                        </h6>
+                                    </div>
+                                    <!-- Card Body -->
+                                    <div class="card-body">
+                                        <div class="chart-pie pt-4 pb-2">
+                                            <canvas id="graf1"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content">
+                        <div class="container" id="divCuest" style="display:none;">
+                            <div class="card o-hidden border-0 shadow-lg my-5">
+                                <div class="card-body p-0">
+                                    <div class="row">
+                                        <div class="col-lg-2 d-none d-lg-block"></div>
+                                        <div class="col-lg-7">
+                                            <div class="p-5">
+                                                <h1 class="h3 mb-0 text-gray-800" id="h1Test"></h1>
+                                                <form class="user">
+                                                    <div id="inModPreg">
+
+                                                    </div>
+                                                    <button type="button" class="btn btn-primary btn-user btn-block" id="btnFinalizarCuest">Finalizar Cuestionario</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 d-none d-lg-block"></div>
+                                    </div>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                    <!-- Scroll to Top Button-->
+                    <a class="scroll-to-top rounded" href="#page-top">
+                        <i class="fas fa-angle-up"></i>
+                    </a>
+
+                    <!-- Logout Modal-->
+                    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">¿Seguro que quieres cerrar sesión?</h5>
+                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    Selecciona "Cerrar Sesión" si estas listo para finalizar la sesión.
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-secondary" type="button" data-dismiss="modal">
+                                        Cancelar
+                                    </button>
+                                    <a class="btn btn-primary" href="logout.xhtml">Cerrar Sesión</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="js/global.js"></script>
+        <!-- Bootstrap core JavaScript-->
+        <script src="vendor/jquery/jquery.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Core plugin JavaScript-->
+        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+        <!-- Custom scripts for all pages-->
+        <script src="js/sb-admin-2.min.js"></script>
+        <script src="vendor/chart.js/Chart.min.js"></script>
+        <!-- Page level plugins -->
+        <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+        <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+        <!-- Page level custom scripts -->
+        <script src="js/demo/datatables-demo.js"></script>
+        <script>
+                                                    var userx = "";
+                                                    document.addEventListener("DOMContentLoaded", function () {
+                                                        userx = localStorage.getItem("nameUser");
+                                                        if (userx !== null || userx !== undefined) {
+                                                            if (userx.split(",")[2] == "Docente") {
+                                                                window.location.href = 'index.html';
+                                                            }
+                                                            $(".user_x").text(userx.split(",")[0]);
+                                                            $("#sidebar").load(userx.split(",")[4]);
+                                                            cargarAsignatura(userx.split(",")[3]);
+                                                        }
+                                                    });
+
+                                                    var api_cargar_asignatura = link + "index.xhtml?lstAsignaturaxId=";
+                                                    function cargarAsignatura(id) {
+                                                        $("#selAsig").empty().append('<option value="0" selected>Seleccione asignatura</option>');
+                                                        $.ajaxSetup({async: false});
+                                                        $.getJSON(api_cargar_asignatura + id + "", function (data) {
+                                                            $.each(data, function (x, item) {
+                                                                const optionObj = document.createElement("option");
+                                                                optionObj.value = item.idAsignatura;
+                                                                optionObj.text = item.descripcion;
+                                                                document.getElementById("selAsig").appendChild(optionObj);
+                                                            });
+                                                        });
+                                                    }
+
+                                                    const labels = ["Aprobados", "Reprobados", "Sin nota"];
+                                                    const canvas = document.getElementById("graf1");
+                                                    const xx = canvas.getContext("2d");
+                                                    var values = [];
+                                                    var jsonA = [];
+                                                    var jsonData = [];
+                                                    var api_cargar_cuestionario = link + "index.xhtml?lstCuestDash=";
+                                                    var api_listar_almCuest = link + "index.xhtml?lstAlmCuest=";
+                                                    function cargarTabla(id) {
+                                                        jsonA = [];
+                                                        values = [];
+                                                        jsonData = [];
+                                                        $.ajaxSetup({async: false});
+                                                        $.getJSON(api_cargar_cuestionario + id + "," + userx.split(",")[1], function (data) {
+                                                            $.each(data, function (x, item) {
+                                                                jsonA.push({
+                                                                    item
+                                                                });
+                                                                values = [item.aprobada, item.reprobada, item.pendiente];
+                                                            });
+                                                        });
+                                                        if (id == "0") {
+                                                            $("#graficos").hide("slow");
+                                                        } else {
+                                                            $("#graficos").show("slow");
+                                                        }
+                                                        new Chart(xx, {
+                                                            type: "doughnut",
+                                                            data: {
+                                                                labels: labels,
+                                                                datasets: [
+                                                                    {
+                                                                        data: values,
+                                                                        backgroundColor: [
+                                                                            "rgba(78, 115, 223, 1)",
+                                                                            "rgba(28, 200, 138, 1)",
+                                                                            "rgba(246, 194, 62, 1)"
+                                                                        ]
+                                                                    }
+                                                                ]
+                                                            }
+                                                        });
+                                                        $.getJSON(api_listar_almCuest + id + "," + userx.split(",")[1], function (data) {
+                                                            $.each(data, function (x, item) {
+                                                                jsonData.push({
+                                                                    meta: item
+                                                                });
+                                                            });
+                                                            datatablesButtons = $("#datatables-buttons").DataTable({
+                                                                destroy: true,
+                                                                searching:false,
+                                                                lengthChange:false,
+                                                                "language": {"url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Spanish.json"},
+                                                                "data": jsonData,
+                                                                "columns": [
+                                                                    {"data": "meta.tipoDocumento", "title": "Tipo Documento"},
+                                                                    {"data": "meta.descripcion", "title": "Descripción"},
+                                                                    {"data": "meta.fecha", "title": "Fecha"},
+                                                                    {"data": "meta.nota", "title": "Nota", render: function (data, type, row, meta) {
+                                                                            var btn = "";
+                                                                            if (data == 0) {
+                                                                                btn = '<span></span>';
+                                                                            } else {
+                                                                                btn = '<span>' + data + '</span>';
+                                                                            }
+
+                                                                            return type === 'display' ? btn : data;
+                                                                        }},
+                                                                    {"data": "meta", "title": "", render: function (data, type, row, meta) {
+                                                                            var btn = "";
+                                                                            if (data.est == 0) {
+                                                                                btn = '<a class="btn btn-primary" href="#" onclick="realizarTest(' + data.idCuestionario + ');"><i class="fas fa-pen"></i></a>';
+                                                                            } else {
+                                                                                btn = '<span></span>';
+                                                                            }
+
+                                                                            return type === 'display' ? btn : data;
+                                                                        }
+                                                                    }
+                                                                ]
+                                                            });
+                                                        });
+                                                    }
+
+                                                    var api_cargar_cuestionario_id = link + "index.xhtml?lstCuestxId=";
+                                                    var api_cargar_pregunta_id = link + "index.xhtml?lstPregxId=";
+                                                    var api_cargar_respuesta_id = link + "index.xhtml?lstRespxId=";
+                                                    var jsonX = [];
+                                                    var jsonY = [];
+                                                    var jsonZ = [];
+                                                    var jsonC = [];
+                                                    var cuest = 0;
+                                                    function realizarTest(idCuest) {
+                                                        jsonX = [];
+                                                        jsonY = [];
+                                                        jsonZ = [];
+                                                        jsonC = [];
+                                                        cuest = idCuest;
+                                                        var divPadre = document.getElementById("inModPreg");
+                                                        $.ajaxSetup({async: false});
+                                                        $.getJSON(api_cargar_cuestionario_id + idCuest + "", function (data) {
+                                                            $.each(data, function (x, item) {
+                                                                jsonX.push({
+                                                                    meta: item
+                                                                });
+                                                            });
+                                                        });
+                                                        $.getJSON(api_cargar_pregunta_id + jsonX[0].meta.idCuestionario + "", function (data) {
+                                                            $.each(data, function (x, item) {
+                                                                jsonY.push({
+                                                                    meta: item
+                                                                });
+                                                            });
+                                                        });
+                                                        document.getElementById("h1Test").appendChild(document.createTextNode(jsonX[0].meta.detalle));
+                                                        for (var i = 0; i < jsonY.length; i++) {
+                                                            var newDiv = document.createElement("div");
+                                                            var newDiv2 = document.createElement("div");
+                                                            var newRad = document.createElement("input");
+                                                            var newp = document.createElement("p");
+                                                            var newtext = document.createElement("textarea");
+                                                            var newlbl = document.createElement("label");
+                                                            newDiv.setAttribute("class", "x1");
+                                                            newtext.classList.add("form-control", "custom-auto-height", "mb-2");
+                                                            newtext.setAttribute("style", "resize:none;");
+                                                            newtext.readOnly = true;
+                                                            newtext.setAttribute("id", "pregDesc_" + jsonY[i].meta.idPregunta);
+                                                            newtext.value = jsonY[i].meta.descripcion;
+                                                            newp.appendChild(document.createTextNode("Pregunta"));
+                                                            newDiv.appendChild(newp);
+                                                            newDiv.appendChild(newtext);
+                                                            $.getJSON(api_cargar_respuesta_id + jsonY[i].meta.idPregunta + "", function (data) {
+                                                                $.each(data, function (x, item) {
+                                                                    jsonZ.push({
+                                                                        meta: item
+                                                                    });
+                                                                    newDiv2 = document.createElement("div");
+                                                                    newDiv2.classList.add("form-group", "row", "align-items-center", "pl-3", "form-check");
+                                                                    newRad = document.createElement("input");
+                                                                    newRad.type = "radio";
+                                                                    newRad.name = "grp_" + item.idPregunta;
+                                                                    newRad.value = item.idRespuesta;
+                                                                    newRad.id = "opcion" + item.idRespuesta;
+                                                                    newlbl = document.createElement("label");
+                                                                    newlbl.htmlFor = "opcion" + item.idRespuesta;
+                                                                    newlbl.textContent = item.descripcion;
+                                                                    newlbl.setAttribute("class", "ml-2");
+                                                                    newDiv2.appendChild(newRad);
+                                                                    newDiv2.appendChild(newlbl);
+                                                                    newDiv.appendChild(newDiv2);
+                                                                });
+                                                                divPadre.appendChild(newDiv);
+                                                            });
+                                                        }
+                                                        $("#asig").hide("slow");
+                                                        $("#divCuest").show("slow");
+                                                    }
+
+                                                    var api_finalizar_cuest = link + "index.xhtml?finCuest=";
+                                                    var api_añadir_nota = link + "index.xhtml?insNota=";
+                                                    $("#btnFinalizarCuest").click(function () {
+                                                        var resp = "";
+                                                        var pr = "";
+                                                        var val = "";
+                                                        for (var i = 0; i < jsonY.length; i++) {
+                                                            val = $("input[type=radio][name=grp_" + jsonY[i].meta.idPregunta + "]:checked").val() == null ? "0" : $("input[type=radio][name=grp_" + jsonY[i].meta.idPregunta + "]:checked").val();
+                                                            if (i == 0) {
+                                                                resp = resp + val;
+                                                                pr = pr + jsonY[i].meta.idPregunta;
+                                                            } else {
+                                                                resp = resp + "," + val;
+                                                                pr = pr + "," + jsonY[i].meta.idPregunta;
+                                                            }
+                                                        }
+                                                        var nota = 0;
+                                                        var made = [{"preguntas": pr, "respuestas": resp}];
+                                                        $.getJSON(api_finalizar_cuest + encodeURIComponent(JSON.stringify(made)) + '', function (data) {
+                                                            $.each(data, function (x, item) {
+                                                                nota = item;
+                                                            });
+                                                        });
+                                                        var made = [{"rut": userx.split(",")[1], "cuest": cuest, "nota": nota}];
+                                                        $.ajax({
+                                                            type: "POST",
+                                                            url: api_añadir_nota + encodeURIComponent(JSON.stringify(made)) + '',
+                                                            data: encodeURIComponent(JSON.stringify(made)),
+                                                            dataType: 'json',
+                                                            success: function (result) {
+                                                                result.status;
+                                                            },
+                                                            error: function (err) {
+                                                                if (err.status == '200') {
+                                                                    swal("Bien!", "Se ha finalizado el cuestionario correctamente!", "success");
+                                                                    setTimeout(function () {
+                                                                        window.location.reload();
+                                                                    }, 1500);
+                                                                } else {
+                                                                    swal("Oops!", "Ha ocurrido un error!", "error");
+                                                                }
+                                                            }
+                                                        });
+                                                    });
+        </script>
+    </body>
+</html>

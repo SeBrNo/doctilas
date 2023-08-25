@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <title>Comuna</title>
+
+        <!-- Custom fonts for this template -->
+        <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"/>
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet"/>
+
+        <!-- Custom styles for this template -->
+        <link href="css/sb-admin-2.min.css" rel="stylesheet" />
+
+        <!-- Custom styles for this page -->
+        <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet"/>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js" type="text/javascript"></script>
+    </head>
+
+    <body id="page-top">
+        <!-- Page Wrapper -->
+        <div id="wrapper">
+            <!-- Sidebar -->
+            <nav id="sidebar" class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion">
+
+            </nav>
+            <!-- End of Sidebar -->
+
+            <!-- Content Wrapper -->
+            <div id="content-wrapper" class="d-flex flex-column">
+                <!-- Main Content -->
+                <div id="content">
+                    <!-- Topbar -->
+                    <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                        <!-- Sidebar Toggle (Topbar) -->
+                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <h1 class="h3 text-gray-800 mb-0">Comunas</h1>
+                        <!-- Topbar Navbar -->
+                        <ul class="navbar-nav ml-auto">
+                            <div class="topbar-divider d-none d-sm-block"></div>
+                            <!-- Nav Item - User Information -->
+                            <li class="nav-item dropdown no-arrow">
+                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small user_x">Usuario</span>
+                                    <img class="img-profile rounded-circle" src="img/undraw_profile.svg"/>
+                                </a>
+                                <!-- Dropdown - User Information -->
+                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Cerrar Sesión
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- End of Topbar -->
+
+                    <!-- Begin Page Content -->
+                    <div class="container-fluid">
+                        <!-- DataTales Example -->
+                        <div class="card shadow mb-4">
+                            <div class="card-body">
+                                <button title="Agregar Comuna" id="btnAgregar" onclick="limpiarModal(1)" data-toggle="modal" data-target="#comModal" type="button" class="btn btn-primary"><i class="fas fa-plus-square"></i> Agregar</button>
+                                <div class="table-responsive">
+                                    <table id="datatables-buttons" class="table table-bordered" width="100%">
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End of Main Content -->
+
+                <!-- End of Footer -->
+            </div>
+            <!-- End of Content Wrapper -->
+        </div>
+        <!-- End of Page Wrapper -->
+
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+
+        <!-- Logout Modal-->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">¿Seguro que quieres cerrar sesión?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Selecciona "Cerrar Sesión" si estas listo para finalizar la sesión.
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">
+                            Cancelar
+                        </button>
+                        <a class="btn btn-primary" href="logout.xhtml">Cerrar Sesión</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mod Modal-->
+        <div class="modal fade" id="comModal" tabindex="-1" role="dialog" aria-labelledby="comModal" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Comuna</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group" id="idComDiv" style="display:none;">
+                            <label for="idComT">Id.</label>
+                            <input type="text" class="form-control custom-auto-height" id="idComT" value="x" readonly/> 
+                        </div>
+                        <div class="form-group">
+                            <label for="descCom">Descripción</label>
+                            <input type="text" class="form-control custom-auto-height" id="descCom" placeholder="Ingrese descripción"/> 
+                        </div>
+                        <div class="form-group">
+                            <label for="selCiud">Ciudad</label>
+                            <select id="selCiud" class="form-control custom-auto-height">
+                                <option value="0" selected disabled>Seleccione ciudad</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal" onclick="limpiarModal(2);">
+                            Cancelar
+                        </button>
+                        <a class="btn btn-primary" onclick="limpiarModal(2);">Limpiar</a>
+                        <a class="btn btn-primary" id="btnFinalizar">Finalizar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- del Modal-->
+        <div class="modal fade" id="delModal" tabindex="-1" role="dialog" aria-labelledby="delModal" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">¿Seguro que quieres eliminar la comuna?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <input type="text" class="form-control custom-auto-height" id="idComD" hidden/>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">
+                            No
+                        </button>
+                        <a class="btn btn-primary" onclick="eliminar();">Si</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="js/global.js"></script>
+        <!-- Bootstrap core JavaScript-->
+        <script src="vendor/jquery/jquery.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Core plugin JavaScript-->
+        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+        <!-- Custom scripts for all pages-->
+        <script src="js/sb-admin-2.min.js"></script>
+
+        <!-- Page level plugins -->
+        <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+        <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+        <!-- Page level custom scripts -->
+        <script src="js/demo/datatables-demo.js"></script>
+        <script>
+                            var userx;
+                            document.addEventListener("DOMContentLoaded", function () {
+                                userx = localStorage.getItem("nameUser");
+                                if (userx !== null || userx !== undefined) {
+                                    if (userx.split(",")[2] == "Alumno") {
+                                        window.location.href = 'indexAlumno.html';
+                                    } else if (userx.split(",")[2] == "Docente") {
+                                        window.location.href = 'index.html';
+                                    }
+                                    $(".user_x").text(userx.split(",")[0]);
+                                    $("#sidebar").load(userx.split(",")[4]);
+                                    CargarDatos();
+                                    cargarPaises();
+                                }
+                            });
+
+                            var api_cargar_ciudad = link + "index.xhtml?listCiudad=";
+                            function cargarPaises() {
+                                $("#selCiud").empty().append('<option value="0" selected disabled>Seleccione ciudad</option>');
+                                $.ajaxSetup({async: false});
+                                $.getJSON(api_cargar_ciudad, function (data) {
+                                    $.each(data, function (x, item) {
+                                        const optionObj = document.createElement("option");
+                                        optionObj.value = item.idCiudad;
+                                        optionObj.text = item.descripcion;
+                                        document.getElementById("selCiud").appendChild(optionObj);
+                                    });
+                                });
+                            }
+
+                            var jsonData = [];
+                            var datatablesButtons;
+                            var api_cargar_comuna = link + "index.xhtml?listComuna=";
+                            function CargarDatos() {
+                                jsonData = [];
+                                $.getJSON(api_cargar_comuna, function (data) {
+                                    $.each(data, function (x, item) {
+                                        jsonData.push({
+                                            meta: item
+                                        });
+                                    });
+                                    datatablesButtons = $("#datatables-buttons").DataTable({
+                                        dom: '<"top mb-4"B><"container-fluid"<"row"<"col"l><"col"f>>>rt<"bottom container-fluid"<"row"<"col"i><"col"p>>>',
+                                        destroy: true,
+                                        "language": {"url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Spanish.json"},
+                                        "data": jsonData,
+                                        "columns": [
+                                            {"data": "meta.idComuna", "title": "Id. Comuna"},
+                                            {"data": "meta.descripcion", "title": "Descripción"},
+                                            {"data": "meta.ciudadDescripcion", "title": "Ciudad"},
+                                            {"data": "meta", "title": "Acciones", "render": function (item, row, type, pos) {
+                                                    return '<div class="btn-group btn-group-sm" role="group"><button title="Modificar Comuna" onclick="setModal(' + pos.row + ');" data-toggle="modal" data-target="#comModal" type="button" class="btn btn-info"><i class="fas fa-edit"></i></button>' +
+                                                            '<button title="Eliminar Comuna" onclick=\'$("#idComT").val(' + pos.row + ');\' data-toggle="modal" data-target="#delModal" type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button></div>';
+                                                }
+                                            }
+                                        ]
+                                    });
+                                });
+                            }
+
+                            var msg = "";
+                            $("#btnFinalizar").click(function () {
+                                let made = $('#idComT').val() == "x" ? [{"idCiud": $('#selCiud').val(),"desc": $('#descCom').val()}] : [{"idCom": $('#idComT').val(), "desc": $('#descCom').val(),"idCiud": $('#selCiud').val()}];
+                                let api_comuna = $('#idComT').val() == "x" ? link + "index.xhtml?insComuna=" : link + "index.xhtml?modComuna=";
+                                msg = $('#idComT').val() == "x" ? "La comuna se ha creado correctamente!" : "La comuna se ha modificado correctamente!";
+                                $.ajaxSetup({async: false});
+                                $.ajax({
+                                    type: "POST",
+                                    url: api_comuna + encodeURIComponent(JSON.stringify(made)) + '',
+                                    data: encodeURIComponent(JSON.stringify(made)),
+                                    dataType: 'json',
+                                    success: function (result) {
+                                        result.status;
+                                    },
+                                    error: function (err) {
+                                        if (err.status == '200') {
+                                            CargarDatos();
+                                            $("#comModal").modal('hide');
+                                            swal("Bien!", msg, "success");
+                                        } else {
+                                            swal("Oops!", "Ha ocurrido un error!", "error");
+                                        }
+                                    }
+                                });
+                            });
+                            
+                            var api_del_comuna = link + "index.xhtml?delComuna=";
+                            function eliminar() {
+                                let made = [{"idCom": jsonData[$('#idComT').val()].meta.idComuna}];
+                                $.ajaxSetup({async: false});
+                                $.ajax({
+                                    type: "POST",
+                                    url: api_del_comuna + encodeURIComponent(JSON.stringify(made)) + '',
+                                    data: encodeURIComponent(JSON.stringify(made)),
+                                    dataType: 'json',
+                                    success: function (result) {
+                                        result.status;
+                                    },
+                                    error: function (err) {
+                                        if (err.status == '200') {
+                                            CargarDatos();
+                                            $("#delModal").modal('hide');
+                                            swal("Bien!", "La comuna se ha eliminado correctamente!", "success");
+                                        } else {
+                                            swal("Oops!", "Ha ocurrido un error!", "error");
+                                        }
+                                    }
+                                });
+                            }
+
+                            function limpiarModal(op) {
+                                if (op == 1) {
+                                    $("#idComT").val("x");
+                                }
+                                $("#selCiud").val(0);
+                                $("#descCom").val("");
+                            }
+
+                            function setModal(id) {
+                                $("#idComT").val(jsonData[id].meta.idComuna);
+                                $("#descCom").val(jsonData[id].meta.descripcion);
+                                $("#selCiud").val(jsonData[id].meta.idCiudad);
+                            }
+        </script>
+    </body>
+</html>

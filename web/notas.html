@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+        <title>Notas</title>
+
+        <!-- Custom fonts for this template-->
+        <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"/>
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet"/>
+
+        <!-- Custom styles for this template-->
+        <link href="css/sb-admin-2.min.css" rel="stylesheet" />
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js" type="text/javascript"></script>
+    </head>
+
+    <body id="page-top">
+        <!-- Page Wrapper -->
+        <div id="wrapper">
+            <!-- Sidebar -->
+            <nav id="sidebar" class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion">
+
+            </nav>
+            <!-- End of Sidebar -->
+
+            <!-- Content Wrapper -->
+            <div id="content-wrapper" class="d-flex flex-column">
+                <!-- Main Content -->
+                <div id="content">
+                    <!-- Topbar -->
+                    <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                        <!-- Sidebar Toggle (Topbar) -->
+                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <h1 class="h3 text-gray-800 mb-0">Notas</h1>
+                        <!-- Topbar Navbar -->
+                        <ul class="navbar-nav ml-auto">
+                            <div class="topbar-divider d-none d-sm-block"></div>
+
+                            <!-- Nav Item - User Information -->
+                            <li class="nav-item dropdown no-arrow">
+                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small user_x">Usuario</span>
+                                    <img class="img-profile rounded-circle" src="img/undraw_profile.svg"/>
+                                </a>
+                                <!-- Dropdown - User Information -->
+                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Cerrar Sesión
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- End of Topbar -->
+
+                    <!-- Begin Page Content -->
+
+                    <div class="ml-md-3">
+                        <div class="btn-group">
+                            <button class="btn btn-primary" id="btnAddNota">Crear</button>
+                            <button class="btn btn-primary" id="btnModNota">Modificar</button>
+                            <button class="btn btn-primary" id="btnDelNota">Eliminar</button>
+                        </div>
+                    </div>
+
+                    <!--añadir-->
+                    <div class="container" id="addNota" style="display:none;">
+                        <div class="card o-hidden border-0 shadow-lg my-5">
+                            <div class="card-body p-0">
+                                <!-- Nested Row within Card Body -->
+                                <div class="row">
+                                    <div class="col-lg-2 d-none d-lg-block"></div>
+                                    <div class="col-lg-7">
+                                        <div class="p-5">
+                                            <form class="user">
+                                                <div id="selecAsignatura">
+                                                    <div class="text-center">
+                                                        <h1 class="h4 text-gray-900 mb-4">Seleccione curso</h1>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <div class="col-sm-6 mb-3 mb-sm-0">
+                                                            <select id="selCursoAdd" class="form-control custom-auto-height selCurso" onchange="searchAsig(this.value, 'Add');">
+                                                                <option value="0" selected hidden>Seleccione curso</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-sm-6 mb-3 mb-sm-0">
+                                                            <select id="selAsigAdd" class="form-control custom-auto-height" onchange="searchAlum(this.value, 'Add')">
+                                                                <option value="0" selected>Seleccione asignatura</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <a href="#" class="btn btn-primary btn-user btn-block" id="btnContinuar">Continuar</a> 
+                                                </div>
+                                                <div id="ingNota" style="display:none;">
+                                                    <div class="col-sm">
+                                                        <a class="btn btn-primary" id="btnAtras">Atrás</a>
+                                                    </div>
+                                                    <div class="text-center">
+                                                        <h1 class="h4 text-gray-900 mb-4">Ingresa Una Nota</h1>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <div class="col-sm-6 mb-3 mb-sm-0">
+                                                            <select id="selAlmAdd" class="form-control custom-auto-height">
+                                                                <option value="0" selected hidden>Seleccione alumno</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-sm-6 mb-3 mb-sm-0">
+                                                            <select id="docAlm" class="form-control custom-auto-height">
+                                                                <option value="0" selected>Seleccione documento</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <input type="text" class="form-control custom-auto-height" id="notaAlm" placeholder="Nota (Ej:1.0-7.0)"/> 
+                                                    <br/>
+                                                    <a href="#" class="btn btn-primary btn-user btn-block" id="btnEnviar">Ingresar La Nota</a>
+                                                </div>
+                                            </form>
+                                            <hr />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--modificar-->
+                    <div class="container" id="modNota" style="display:none;">
+                        <div class="card o-hidden border-0 shadow-lg my-5">
+                            <div class="card-body p-0">
+                                <!-- Nested Row within Card Body -->
+                                <div class="row">
+                                    <div class="col-lg-1 d-none d-lg-block"></div>
+                                    <div class="col-lg-10">
+                                        <div class="p-5">
+                                            <form class="user">
+                                                <div id="selcts">
+                                                    <div class="text-center">
+                                                        <h1 class="h4 text-gray-900 mb-4">Seleccione</h1>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <div class="col-sm-4 mb-3 mb-sm-0">
+                                                            <select id="selCursoMod" class="form-control custom-auto-height selCurso" onchange="searchAsig(this.value, 'Mod');">
+                                                                <option value="0" selected hidden>Seleccione curso</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-sm-4 mb-3 mb-sm-0">
+                                                            <select id="selAsigMod" class="form-control custom-auto-height" onchange="searchAlum(this.value, 'Mod')">
+                                                                <option value="0" selected>Seleccione asignatura</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-sm-4 mb-3 mb-sm-0">
+                                                            <select id="selAlmMod" class="form-control custom-auto-height">
+                                                                <option value="0" selected>Seleccione alumno</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <a href="#" class="btn btn-primary btn-user btn-block" id="btnContinuarMod">Continuar</a> 
+                                                </div>
+                                            </form>
+                                            <hr />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-1 d-none d-lg-block"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-8 col-lg-7 container" id="modNotaDiv" style="display:none;">
+                        <div class="card shadow mb-4">
+                            <!-- Card Header - Dropdown -->
+                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 font-weight-bold text-primary">
+                                    Notas
+                                </h6>
+                            </div>
+                            <!-- Card Body -->
+                            <div class="card-body">
+                                <div class="col-sm">
+                                    <a class="btn btn-primary mb-4" id="btnAtrasMod">Atrás</a>
+                                </div>
+                                <div class="chart-area">
+                                    <table id="datatables-buttons-nota" class="table table-bordered form-group" width="100%" cellspacing="0">
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--eliminar-->
+                    <div class="container" id="delNota" style="display:none;">
+                        <div class="card o-hidden border-0 shadow-lg my-5">
+                            <div class="card-body p-0">
+                                <!-- Nested Row within Card Body -->
+                                <div class="row">
+                                    <div class="col-lg-1 d-none d-lg-block"></div>
+                                    <div class="col-lg-10">
+                                        <div class="p-5">
+                                            <form class="user">
+                                                <div id="selcts">
+                                                    <div class="text-center">
+                                                        <h1 class="h4 text-gray-900 mb-4">Seleccione</h1>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <div class="col-sm-4 mb-3 mb-sm-0">
+                                                            <select id="selCursoDel" class="form-control custom-auto-height selCurso" onchange="searchAsig(this.value, 'Del');">
+                                                                <option value="0" selected hidden>Seleccione curso</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-sm-4 mb-3 mb-sm-0">
+                                                            <select id="selAsigDel" class="form-control custom-auto-height" onchange="searchAlum(this.value, 'Del')">
+                                                                <option value="0" selected>Seleccione asignatura</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-sm-4 mb-3 mb-sm-0">
+                                                            <select id="selAlmDel" class="form-control custom-auto-height">
+                                                                <option value="0" selected>Seleccione alumno</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <a href="#" class="btn btn-primary btn-user btn-block" id="btnContinuarDel">Continuar</a> 
+                                                </div>
+                                            </form>
+                                            <hr />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-1 d-none d-lg-block"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-8 col-lg-7 container" id="delNotaDiv" style="display:none;">
+                        <div class="card shadow mb-4">
+                            <!-- Card Header - Dropdown -->
+                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 font-weight-bold text-primary">
+                                    Notas
+                                </h6>
+                            </div>
+                            <!-- Card Body -->
+                            <div class="card-body">
+                                <div class="col-sm">
+                                    <a class="btn btn-primary mb-4" id="btnAtrasDel">Atrás</a>
+                                </div>
+                                <div class="chart-area">
+                                    <table id="datatables-buttons-del" class="table table-bordered form-group" width="100%" cellspacing="0">
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End of Footer -->
+            </div>
+            <!-- End of Content Wrapper -->
+        </div>
+        <!-- End of Page Wrapper -->
+
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+
+        <!-- Logout Modal-->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">¿Seguro que quieres cerrar sesión?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Selecciona "Cerrar Sesión" si estas listo para finalizar la sesión.
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">
+                            Cancelar
+                        </button>
+                        <a class="btn btn-primary" href="logout.xhtml">Cerrar Sesión</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modificar Modal-->
+        <div class="modal fade" id="modModal" tabindex="-1">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Modificar Nota</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="user">
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <span>Nota: </span>
+                                </div>
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <input class="form-control form-control-sm" id="newNota"/>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">
+                            Cancelar
+                        </button>
+                        <a class="btn btn-primary" onclick="modificarNota();" href="#">Modificar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="js/global.js"></script>
+        <!-- Bootstrap core JavaScript-->
+        <script src="vendor/jquery/jquery.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Core plugin JavaScript-->
+        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+        <!-- Custom scripts for all pages-->
+        <script src="js/sb-admin-2.min.js"></script>
+
+        <!-- Page level plugins -->
+        <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+        <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+        <!-- Page level custom scripts -->
+        <script src="js/demo/datatables-demo.js"></script>
+        <script>
+                            var userx;
+                            var api_cargar_curso = link + "index.xhtml?listCurso=";
+                            var api_cargar_asignatura = link + "index.xhtml?lstAsignaturaxId=";
+                            var api_cargar_alumno = link + "index.xhtml?lstAlmxAsig=";
+                            var api_cargar_documento = link + "index.xhtml?lstDocxAsig=";
+                            var api_insertar_nota = link + "index.xhtml?insNota=";
+                            document.addEventListener("DOMContentLoaded", function () {
+                                userx = localStorage.getItem("nameUser");
+                                if (userx !== null || userx !== undefined) {
+                                    if (userx.split(",")[2] == "Alumno") {
+                                        window.location.href = 'indexAlumno.html';
+                                    }
+                                    $(".user_x").text(userx.split(",")[0]);
+                                    $("#sidebar").load(userx.split(",")[4]);
+                                    cargarSpinner();
+                                }
+                            });
+
+                            function cargarSpinner() {
+                                $(".selCurso").empty().append('<option value="0" selected>Seleccione curso</option>');
+                                $.ajaxSetup({async: false});
+                                var selects = document.getElementsByClassName("selCurso");
+                                $.getJSON(api_cargar_curso, function (data) {
+                                    for (var i = 0; i < selects.length; i++) {
+                                        var select = selects[i];
+                                        $.each(data, function (x, item) {
+                                            var optionObj = document.createElement("option");
+                                            optionObj.value = item.idCurso;
+                                            optionObj.text = item.descripcion;
+                                            select.add(optionObj);
+                                        });
+                                    }
+                                });
+                            }
+
+                            $("#btnContinuarMod").click(function () {
+                                var error = 0;
+                                if ($('#selCursoMod').val() == 0) {
+                                    error = error + 1;
+                                    $('#selCursoMod').attr('style', 'border-color:red');
+                                } else {
+                                    $('#selCursoMod').removeAttr('style', 'border-color:red');
+                                }
+                                if ($('#selAsigMod').val() == 0) {
+                                    error = error + 1;
+                                    $('#selAsigMod').attr('style', 'border-color:red');
+                                } else {
+                                    $('#selAsigMod').removeAttr('style', 'border-color:red');
+                                }
+                                if ($('#selAlmMod').val() == 0) {
+                                    error = error + 1;
+                                    $('#selAlmMod').attr('style', 'border-color:red');
+                                } else {
+                                    $('#selAlmMod').removeAttr('style', 'border-color:red');
+                                }
+                                if (error != 0) {
+                                    swal("Oops!", "Debes completar el formulario!", "error");
+                                } else {
+                                    buscarNotas();
+                                    $("#modNota").hide('slow');
+                                    $("#modNotaDiv").show('slow');
+                                }
+                            });
+
+                            $("#btnContinuarDel").click(function () {
+                                var error = 0;
+                                if ($('#selCursoDel').val() == 0) {
+                                    error = error + 1;
+                                    $('#selCursoDel').attr('style', 'border-color:red');
+                                } else {
+                                    $('#selCursoDel').removeAttr('style', 'border-color:red');
+                                }
+                                if ($('#selAsigDel').val() == 0) {
+                                    error = error + 1;
+                                    $('#selAsigDel').attr('style', 'border-color:red');
+                                } else {
+                                    $('#selAsigDel').removeAttr('style', 'border-color:red');
+                                }
+                                if ($('#selAlmDel').val() == 0) {
+                                    error = error + 1;
+                                    $('#selAlmDel').attr('style', 'border-color:red');
+                                } else {
+                                    $('#selAlmDel').removeAttr('style', 'border-color:red');
+                                }
+                                if (error != 0) {
+                                    swal("Oops!", "Debes completar el formulario!", "error");
+                                } else {
+                                    buscarNotasDel();
+                                    $("#delNota").hide('slow');
+                                    $("#delNotaDiv").show('slow');
+                                }
+                            });
+
+                            $("#btnAtrasMod").click(function () {
+                                $("#modNotaDiv").hide('slow');
+                                $("#modNota").show('slow');
+                            });
+
+                            $("#btnAtrasDel").click(function () {
+                                $("#delNotaDiv").hide('slow');
+                                $("#delNota").show('slow');
+                            });
+
+                            $("#btnAddNota").click(function () {
+                                $("#delNota").hide('slow');
+                                $("#modNotaDiv").hide('slow');
+                                $("#delNotaDiv").hide('slow');
+                                $("#modNota").hide('slow');
+                                $("#addNota").show('slow');
+                            });
+
+                            $("#btnModNota").click(function () {
+                                $("#delNota").hide('slow');
+                                $("#modNotaDiv").hide('slow');
+                                $("#delNotaDiv").hide('slow');
+                                $("#addNota").hide('slow');
+                                $("#modNota").show('slow');
+                            });
+
+                            $("#btnDelNota").click(function () {
+                                $("#delNota").show('slow');
+                                $("#modNota").hide('slow');
+                                $("#modNotaDiv").hide('slow');
+                                $("#delNotaDiv").hide('slow');
+                                $("#addNota").hide('slow');
+                            });
+
+                            var api_buscar_notas = link + "index.xhtml?srcNotas=";
+                            var jsonData = [];
+                            function buscarNotas() {
+                                jsonData = [];
+                                var idEst = $("#selAlmMod").val();
+                                var idAsig = $("#selAsigMod").val();
+                                $.getJSON(api_buscar_notas + idEst + "," + idAsig, function (data) {
+                                    $.each(data, function (x, item) {
+                                        jsonData.push({
+                                            meta: item
+                                        });
+                                    });
+                                    datatablesButtons = $("#datatables-buttons-nota").DataTable({
+                                        destroy: true,
+                                        searching: false,
+                                        lengthChange: false,
+                                        "language": {"url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Spanish.json"},
+                                        "data": jsonData,
+                                        "columns": [
+                                            {"data": "meta.detalle", "title": "Descripción"},
+                                            {"data": "meta.nota", "title": "Nota"},
+                                            {"data": "meta", "title": "", render: function (data, type, row, meta) {
+                                                    var btn = '<a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modModal" href="#" onclick="setModal(' + data.nota + ',' + data.idNota + ');"><i class="fas fa-pen"></i></a>';
+                                                    return type === 'display' ? btn : data;
+                                                }
+                                            }
+                                        ]
+                                    });
+                                });
+                            }
+
+                            var jsonDataD = [];
+                            function buscarNotasDel() {
+                                jsonData = [];
+                                var idEst = $("#selAlmDel").val();
+                                var idAsig = $("#selAsigDel").val();
+                                $.getJSON(api_buscar_notas + idEst + "," + idAsig, function (data) {
+                                    $.each(data, function (x, item) {
+                                        jsonData.push({
+                                            meta: item
+                                        });
+                                    });
+                                    datatablesButtons = $("#datatables-buttons-del").DataTable({
+                                        destroy: true,
+                                        searching: false,
+                                        lengthChange: false,
+                                        "language": {"url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Spanish.json"},
+                                        "data": jsonData,
+                                        "columns": [
+                                            {"data": "meta.detalle", "title": "Descripción"},
+                                            {"data": "meta.nota", "title": "Nota"},
+                                            {"data": "meta", "title": "", render: function (data, type, row, meta) {
+                                                    var btn = '<a class="btn btn-danger btn-sm" href="#" onclick="eliminarNota(' + data.idNota + ');"><i class="fas fa-trash-alt"></i></a>';
+                                                    return type === 'display' ? btn : data;
+                                                }
+                                            }
+                                        ]
+                                    });
+                                });
+                            }
+
+                            function setModal(nota, idNota) {
+                                $("#newNota").val(nota);
+                                $("#newNota").attr("kid", idNota);
+                            }
+
+                            var api_update_nota = link + "index.xhtml?updNota=";
+                            function modificarNota() {
+                                var not = $("#newNota").val();
+                                var idNot = document.getElementById("newNota").getAttribute("kid");
+                                let made = [{"nota": not, "idNota": idNot}];
+                                $.ajax({
+                                    type: "POST",
+                                    url: api_update_nota + encodeURIComponent(JSON.stringify(made)) + '',
+                                    data: encodeURIComponent(JSON.stringify(made)),
+                                    dataType: 'json',
+                                    success: function (result) {
+                                        result.status;
+                                    },
+                                    error: function (err) {
+                                        if (err.status == '200') {
+                                            swal("Bien!", "Se ha modificado la nota correctamente!", "success");
+                                            $("#modModal").modal("hide");
+                                            setTimeout(function () {
+                                                window.location.reload();
+                                            }, 1500);
+                                        } else {
+                                            swal("Oops!", "Ha ocurrido un error!", "error");
+                                        }
+                                    }
+                                });
+                            }
+
+                            var api_eliminar_nota = link + "index.xhtml?delNota=";
+                            function eliminarNota(idNota) {
+                                let made = [{"idNota": idNota}];
+                                $.ajax({
+                                    type: "POST",
+                                    url: api_eliminar_nota + encodeURIComponent(JSON.stringify(made)) + '',
+                                    data: encodeURIComponent(JSON.stringify(made)),
+                                    dataType: 'json',
+                                    success: function (result) {
+                                        result.status;
+                                    },
+                                    error: function (err) {
+                                        if (err.status == '200') {
+                                            swal("Bien!", "Se ha eliminado la nota correctamente!", "success");
+                                            setTimeout(function () {
+                                                window.location.reload();
+                                            }, 1500);
+                                        } else {
+                                            swal("Oops!", "Ha ocurrido un error!", "error");
+                                        }
+                                    }
+                                });
+                            }
+
+                            function searchAsig(idCurso, tip) {
+                                $("#selAsig" + tip).empty().append('<option value="0" selected>Seleccione asignatura</option>');
+                                $.ajaxSetup({async: false});
+                                $.getJSON(api_cargar_asignatura + idCurso + "", function (data) {
+                                    $.each(data, function (x, item) {
+                                        const optionObj = document.createElement("option");
+                                        optionObj.value = item.idAsignatura;
+                                        optionObj.text = item.descripcion;
+                                        document.getElementById("selAsig" + tip).appendChild(optionObj);
+                                    });
+                                });
+                            }
+
+                            var api_cargar_cuest = link + "index.xhtml?lstCuestxAsig=";
+                            function searchAlum(idAsig, tip) {
+                                $("#selAlm" + tip).empty().append('<option value="0" selected>Seleccione alumno</option>');
+                                $.ajaxSetup({async: false});
+                                $.getJSON(api_cargar_alumno + idAsig + "", function (data) {
+                                    $.each(data, function (x, item) {
+                                        const optionObj = document.createElement("option");
+                                        optionObj.value = item.rut;
+                                        optionObj.text = item.nombre;
+                                        document.getElementById("selAlm" + tip).appendChild(optionObj);
+                                    });
+                                });
+                                if (tip == "Add") {
+                                    $("#docAlm").empty().append('<option value="0" selected>Seleccione documento</option>');
+                                    $.ajaxSetup({async: false});
+                                    $.getJSON(api_cargar_cuest + idAsig + "", function (data) {
+                                        $.each(data, function (x, item) {
+                                            const optionObj = document.createElement("option");
+                                            optionObj.value = item.idCuestionario;
+                                            optionObj.text = item.detalle;
+                                            document.getElementById("docAlm").appendChild(optionObj);
+                                        });
+                                    });
+                                }
+                            }
+
+                            $("#btnContinuar").click(function () {
+                                var error = 0;
+                                if ($('#cursoAlm').val() == 0) {
+                                    error = error + 1;
+                                    $('#cursoAlm').attr('style', 'border-color:red');
+                                } else {
+                                    $('#cursoAlm').removeAttr('style', 'border-color:red');
+                                }
+                                if ($('#asigAlm').val() == 0) {
+                                    error = error + 1;
+                                    $('#asigAlm').attr('style', 'border-color:red');
+                                } else {
+                                    $('#asigAlm').removeAttr('style', 'border-color:red');
+                                }
+                                if (error != 0) {
+                                    swal("Oops!", "Debes completar el formulario!", "error");
+                                } else {
+                                    $("#selecAsignatura").hide('slow');
+                                    $("#ingNota").show('slow');
+                                }
+                            });
+                            $("#btnAtras").click(function () {
+                                $("#ingNota").hide('slow');
+                                $("#selecAsignatura").show('slow');
+                            });
+                            $("#btnEnviar").click(function () {
+                                //validar formulario y enviar a http
+                                var error = 0;
+                                if ($('#selAlmAdd').val() == 0) {
+                                    error = error + 1;
+                                    $('#selAlmAdd').attr('style', 'border-color:red');
+                                } else {
+                                    $('#selAlmAdd').removeAttr('style', 'border-color:red');
+                                }
+                                if ($('#docAlm').val() == 0) {
+                                    error = error + 1;
+                                    $('#docAlm').attr('style', 'border-color:red');
+                                } else {
+                                    $('#docAlm').removeAttr('style', 'border-color:red');
+                                }
+                                if ($('#notaAlm').val().length == 0) {
+                                    error = error + 1;
+                                    $('#notaAlm').attr('style', 'border-color:red');
+                                } else {
+                                    $('#notaAlm').removeAttr('style', 'border-color:red');
+                                }
+                                if (error != 0) {
+                                    swal("Oops!", "Debes completar el formulario!", "error");
+                                } else {
+                                    let made = [{"rut": $('#selAlmAdd').val(), "nota": $('#notaAlm').val(), "cuest": $('#docAlm').val()}];
+                                    var x = encodeURIComponent(JSON.stringify(made));
+                                    $.ajax({
+                                        type: "POST",
+                                        url: api_insertar_nota + encodeURIComponent(JSON.stringify(made)) + '',
+                                        data: encodeURIComponent(JSON.stringify(made)),
+                                        dataType: 'json',
+                                        success: function (result) {
+                                            result.status;
+                                        },
+                                        error: function (err) {
+                                            if (err.status == '200') {
+                                                swal("Bien!", "Se ha añadido la nota correctamente!", "success");
+                                            } else {
+                                                swal("Oops!", "Ha ocurrido un error!", "error");
+                                            }
+                                        }
+                                    });
+                                }
+                            });
+        </script>
+    </body>
+</html>
